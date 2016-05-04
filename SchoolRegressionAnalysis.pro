@@ -15,14 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
     qcustomplot.cpp \
-    explorerwindow.cpp \
-    tablewindow.cpp
+    tablewindow.cpp \
+    selectdatasource.cpp
 
 HEADERS += mainwindow.h \
     qcustomplot.h \
-    explorerwindow.h \
-    tablewindow.h
+    tablewindow.h \
+    selectdatasource.h
 
 FORMS += mainwindow.ui \
-    explorerwindow.ui \
-    tablewindow.ui
+    tablewindow.ui \
+    selectdatasource.ui

@@ -1,10 +1,10 @@
-#include "explorerwindow.h"
+#include "selectdatasource.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    ExplorerWindow w;
+    SelectDataSource w;
     w.show();
 
     return a.exec();
