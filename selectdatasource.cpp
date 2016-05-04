@@ -20,7 +20,7 @@ void SelectDataSource::on_importFromCsvButton_clicked()
     QString fileName = QFileDialog::getOpenFileName(
             this,
             tr("Open File"),
-            QString(),
+            QDir::homePath(),
             tr("CSV Files (*.csv)"));
 
     if (!fileName.isEmpty()) {
