@@ -23,7 +23,9 @@ void SelectDataSource::on_importFromCsvButton_clicked()
             QString(),
             tr("CSV Files (*.csv)"));
 
-    TableWindow *tableWindow = new TableWindow(fileName);
-    tableWindow->show();
-    this->hide();
+    if (!fileName.isEmpty()) {
+        TableWindow *tableWindow = new TableWindow(fileName);
+        tableWindow->show();
+        this->hide();
+    }
 }
