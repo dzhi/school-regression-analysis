@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef EXPLORERWINDOW_H
+#define EXPLORERWINDOW_H
 
 #include <QMainWindow>
 #include <QtGui>
@@ -7,7 +7,7 @@
 #include <QFileSystemModel>
 
 namespace Ui {
-class MainWindow;
+class ExplorerWindow;
 }
 
 class ExplorerWindow : public QMainWindow
@@ -22,8 +22,8 @@ private slots:
     void on_treeView_doubleClicked(const QModelIndex &index);
 
 private:
-    Ui::MainWindow *ui;
+    Ui::ExplorerWindow *ui;
     QFileSystemModel *dirmodel;
 };
 
-#endif // MAINWINDOW_H
+#endif // EXPLORERWINDOW_H

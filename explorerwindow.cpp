@@ -1,12 +1,12 @@
 #include "explorerwindow.h"
-#include "ui_mainwindow.h"
+#include "ui_explorerwindow.h"
 #include <QString>
 #include "tablewindow.h"
 using namespace std;
 
 ExplorerWindow::ExplorerWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::ExplorerWindow)
 {
     ui->setupUi(this);
     QString sPath = "C:/";

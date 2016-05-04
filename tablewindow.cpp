@@ -1,5 +1,5 @@
 #include "tablewindow.h"
-#include "ui_mainwindow2.h"
+#include "ui_tablewindow.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -12,7 +12,7 @@ using namespace std;
 
 TableWindow::TableWindow(QString path, QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow2)
+    ui(new Ui::TableWindow)
 {
     ifstream file(path.toStdString());
     string value;

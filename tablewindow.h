@@ -1,10 +1,10 @@
-#ifndef MAINWINDOW2_H
-#define MAINWINDOW2_H
+#ifndef TABLEWINDOW_H
+#define TABLEWINDOW_H
 
 #include <QMainWindow>
 
 namespace Ui {
-class MainWindow2;
+class TableWindow;
 }
 
 class TableWindow : public QMainWindow
@@ -16,7 +16,7 @@ public:
     ~TableWindow();
 
 private:
-    Ui::MainWindow2 *ui;
+    Ui::TableWindow *ui;
 };
 
-#endif // MAINWINDOW2_H
+#endif // TABLEWINDOW_H
