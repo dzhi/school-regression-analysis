@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>670</width>
-    <height>428</height>
+    <width>768</width>
+    <height>425</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
      <rect>
       <x>520</x>
       <y>40</y>
-      <width>101</width>
+      <width>111</width>
       <height>31</height>
      </rect>
     </property>
@@ -38,13 +38,36 @@
     <property name="geometry">
      <rect>
       <x>520</x>
-      <y>100</y>
-      <width>101</width>
+      <y>80</y>
+      <width>111</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
-     <string>Choose Column</string>
+     <string>Choose Column 1</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>180</y>
+      <width>111</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Choose Column 2</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_2">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>140</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -53,7 +76,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>670</width>
+     <width>768</width>
      <height>26</height>
     </rect>
    </property>

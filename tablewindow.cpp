@@ -49,6 +49,7 @@ void TableWindow::importDataFromCsv(QString path)
 
     for(int i = 0; i < 5; i++) {
         ui->comboBox->addItem(v[0][i]);
+        ui->comboBox_2->addItem(v[0][i]);
     }
 }
 
@@ -57,8 +58,14 @@ TableWindow::~TableWindow()
     delete ui;
 }
 
-//choosing specific column
+//choose variable 1
 void TableWindow::on_pushButton_clicked()
 {
-    int index = ui->comboBox->currentIndex();
+    int index1 = ui->comboBox->currentIndex();
+}
+
+//choose variable 2
+void TableWindow::on_pushButton_2_clicked()
+{
+    int index2 = ui->comboBox->currentIndex();
 }
