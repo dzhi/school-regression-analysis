@@ -10,14 +10,18 @@
 
 using namespace std;
 
-TableWindow::TableWindow(QString path, QWidget *parent) :
+TableWindow::TableWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::TableWindow)
+{
+    ui->setupUi(this);
+}
+
+void TableWindow::importDataFromCsv(QString path)
 {
     ifstream file(path.toStdString());
     string value;
     vector<vector<QString>> v;
-    ui->setupUi(this);
     QStandardItemModel *model = new QStandardItemModel(5,5,this);
         string line;
         while(getline(file,line))
@@ -40,8 +44,8 @@ TableWindow::TableWindow(QString path, QWidget *parent) :
                     model->setItem(i-1,j, new QStandardItem(v[i][j]));
             }
         }
-            ui->tableView->setModel(model);
-            ui->tableView->resize(1000,1000);
+        ui->tableView->setModel(model);
+        ui->tableView->resizeColumnsToContents();
 }
 
 TableWindow::~TableWindow()

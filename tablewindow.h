@@ -12,7 +12,8 @@ class TableWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit TableWindow(QString path, QWidget *parent = 0);
+    explicit TableWindow(QWidget *parent = 0);
+    void importDataFromCsv(QString path);
     ~TableWindow();
 
 private:

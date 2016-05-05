@@ -24,7 +24,8 @@ void SelectDataSource::on_importFromCsvButton_clicked()
             tr("CSV Files (*.csv)"));
 
     if (!fileName.isEmpty()) {
-        TableWindow *tableWindow = new TableWindow(fileName);
+        TableWindow* tableWindow = new TableWindow(); // leak
+        tableWindow->importDataFromCsv(fileName);
         tableWindow->show();
         this->hide();
     }
