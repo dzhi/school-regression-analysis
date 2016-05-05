@@ -46,9 +46,19 @@ void TableWindow::importDataFromCsv(QString path)
         }
         ui->tableView->setModel(model);
         ui->tableView->resizeColumnsToContents();
+
+    for(int i = 0; i < 5; i++) {
+        ui->comboBox->addItem(v[0][i]);
+    }
 }
 
 TableWindow::~TableWindow()
 {
     delete ui;
+}
+
+//choosing specific column
+void TableWindow::on_pushButton_clicked()
+{
+    int index = ui->comboBox->currentIndex();
 }

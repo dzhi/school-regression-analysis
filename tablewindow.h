@@ -16,6 +16,9 @@ public:
     void importDataFromCsv(QString path);
     ~TableWindow();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::TableWindow *ui;
 };
