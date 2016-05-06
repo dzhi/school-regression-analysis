@@ -11,6 +11,7 @@
 #include <vector>
 #include <QFileDialog>
 #include <QAbstractItemModel>
+#include <QtMath>
 
 using namespace std;
 using namespace alglib;
@@ -85,9 +86,9 @@ void TableWindow::importDataFromCsv(QString path)
         }
         v.push_back(row);
     }
-    for(int i = 0; i < 6; i++)
+    for(int i = 0; i < v.size(); i++)
     {
-        for(int j = 0; j < 5; j++)
+        for(int j = 0; j < v[0].size(); j++)
         {
             if(i == 0)
                 model->setHorizontalHeaderItem(j, new QStandardItem(v[i][j]));
@@ -98,7 +99,7 @@ void TableWindow::importDataFromCsv(QString path)
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < v[0].size(); i++) {
         ui->column1_comboBox->addItem(v[0][i]);
         ui->column2_comboBox->addItem(v[0][i]);
     }
@@ -127,8 +128,9 @@ void TableWindow::on_selectColumnsButton_clicked()
 
     v = cov2(xs, ys);
     v = pearsoncorr2(xs, ys);
+    v = v*v; // R-squared
     ui->corrTextEdit->setText(QString::number(v));
-    v = spearmancorr2(xs, ys);
+    //v = spearmancorr2(xs, ys);
     //ui->corrTextEdit->setText(QString::number(v));
 }
 

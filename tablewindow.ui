@@ -93,7 +93,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Correlation:</string>
+     <string>R-squared:</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="corrTextEdit">
