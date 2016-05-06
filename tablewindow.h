@@ -2,6 +2,12 @@
 #define TABLEWINDOW_H
 
 #include <QMainWindow>
+#include <QVector>
+#include <QString>
+
+#include "selectdatasource.h"
+#include "alglib/stdafx.h"
+#include "alglib/statistics.h"
 
 namespace Ui {
 class TableWindow;
@@ -13,16 +19,22 @@ class TableWindow : public QMainWindow
 
 public:
     explicit TableWindow(QWidget *parent = 0);
-    void importDataFromCsv(QString path);
     ~TableWindow();
 
 private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
+    void on_selectColumnsButton_clicked();
+    void importCSVFile();
 
 private:
     Ui::TableWindow *ui;
+    SelectDataSource* sds;
+
+    void importDataFromCsv(QString path);
+    void showThisWindow();
+
+    void plotData(QVector<double> &x, QVector<double> &y, QString xAxisLabel, QString yAxisLabel);
+    alglib::real_1d_array QVectorToALGLIBArray(QVector<double> &v) const;
+    int getMinAndMaxVals(QVector<double> &v, double &min, double &max) const;
 };
 
 #endif // TABLEWINDOW_H

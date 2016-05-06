@@ -20,6 +20,9 @@ private slots:
 
 private:
     Ui::SelectDataSource *ui;
+
+signals:
+    void importButtonClicked();
 };
 
 #endif // SELECTDATASOURCE_H

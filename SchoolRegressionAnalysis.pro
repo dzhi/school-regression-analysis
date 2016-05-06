@@ -12,17 +12,44 @@ TARGET = SchoolRegressionAnalysis
 TEMPLATE = app
 
 
-SOURCES += main.cpp \
-    mainwindow.cpp \
+SOURCES += main.cpp\
+        mainwindow.cpp \
     qcustomplot.cpp \
+    selectdatasource.cpp \
     tablewindow.cpp \
-    selectdatasource.cpp
+    alglib/alglibinternal.cpp \
+    alglib/alglibmisc.cpp \
+    alglib/ap.cpp \
+    alglib/dataanalysis.cpp \
+    alglib/diffequations.cpp \
+    alglib/fasttransforms.cpp \
+    alglib/integration.cpp \
+    alglib/interpolation.cpp \
+    alglib/linalg.cpp \
+    alglib/optimization.cpp \
+    alglib/solvers.cpp \
+    alglib/specialfunctions.cpp \
+    alglib/statistics.cpp
 
-HEADERS += mainwindow.h \
+HEADERS  += mainwindow.h \
     qcustomplot.h \
+    selectdatasource.h \
     tablewindow.h \
-    selectdatasource.h
+    alglib/alglibinternal.h \
+    alglib/alglibmisc.h \
+    alglib/ap.h \
+    alglib/dataanalysis.h \
+    alglib/diffequations.h \
+    alglib/fasttransforms.h \
+    alglib/integration.h \
+    alglib/interpolation.h \
+    alglib/linalg.h \
+    alglib/optimization.h \
+    alglib/solvers.h \
+    alglib/specialfunctions.h \
+    alglib/statistics.h \
+    alglib/stdafx.h
 
-FORMS += mainwindow.ui \
-    tablewindow.ui \
-    selectdatasource.ui
+FORMS    += mainwindow.ui \
+    selectdatasource.ui \
+    tablewindow.ui
