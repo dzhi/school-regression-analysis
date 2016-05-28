@@ -135,6 +135,8 @@ void TableWindow::on_selectColumnsButton_clicked()
 {
     int c1 = ui->column1_comboBox->currentIndex();
     int c2 = ui->column2_comboBox->currentIndex();
+    QString label1 = ui->column1_comboBox->currentText();
+    QString label2 = ui->column2_comboBox->currentText();
     QAbstractItemModel* model = ui->tableView->model();
     int numDataPoints = model->rowCount();
     selectedXValues = QVector<double>(numDataPoints);
@@ -146,7 +148,7 @@ void TableWindow::on_selectColumnsButton_clicked()
         selectedYValues[i] = model->data(model->index(i, c2)).toDouble();
     }
 
-    plotData(selectedXValues, selectedYValues, "x", "y");
+    plotData(selectedXValues, selectedYValues, label1, label2);
 
     double v;
     real_1d_array xs = QVectorToALGLIBArray(selectedXValues);
