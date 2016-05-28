@@ -1,6 +1,7 @@
 #include "tablewindow.h"
 #include "ui_tablewindow.h"
 #include "qcustomplot.h"
+#include "csvparser.h"
 
 #include <iostream>
 #include <sstream>
@@ -70,24 +71,26 @@ void TableWindow::importCSVFile()
 
 void TableWindow::importDataFromCsv(QString path)
 {
+    CsvParser *csvparser = CsvParser_new(path.toStdString().c_str(), ",", 0);
+    CsvRow *row;
     ifstream file(path.toStdString());
     string value;
     vector<vector<QString>> v;
-    QStandardItemModel *model = new QStandardItemModel(5,5,this);
     string line;
-    while(getline(file,line))
+    while(row = CsvParser_getRow(csvparser))
     {
-        vector<QString> row;
-        stringstream lineStream(line);
-        string cell;
-        while(getline(lineStream,cell,',')) {
-            row.push_back(QString::fromStdString(cell));
+        vector<QString> vrow;
+        const char **rowFields = CsvParser_getFields(row);
+        for (int  i = 0 ; i < CsvParser_getNumFields(row) ; i++) {
+            vrow.push_back(rowFields[i]);
         }
-        v.push_back(row);
+        v.push_back(vrow);
     }
-    for(int i = 0; i < 6; i++)
+    QStandardItemModel *model = new QStandardItemModel(v.size()-1,v[0].size(),this);
+    cout << v[v.size()-1].size() << ", " <<v.size() <<endl;
+    for(int i = 0; i < v.size(); i++)
     {
-        for(int j = 0; j < 5; j++)
+        for(int j = 0; j < v[i].size(); j++)
         {
             if(i == 0)
                 model->setHorizontalHeaderItem(j, new QStandardItem(v[i][j]));
@@ -98,7 +101,7 @@ void TableWindow::importDataFromCsv(QString path)
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < v[0].size(); i++) {
         ui->column1_comboBox->addItem(v[0][i]);
         ui->column2_comboBox->addItem(v[0][i]);
     }
