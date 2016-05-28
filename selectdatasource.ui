@@ -54,7 +54,7 @@
        <bool>false</bool>
       </property>
       <property name="text">
-       <string>Option B</string>
+       <string>Import from Excel</string>
       </property>
      </widget>
     </item>

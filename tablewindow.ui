@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>RASA</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTableView" name="tableView">
@@ -20,16 +20,16 @@
       <x>40</x>
       <y>40</y>
       <width>481</width>
-      <height>361</height>
+      <height>511</height>
      </rect>
     </property>
    </widget>
    <widget class="QComboBox" name="column1_comboBox">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>440</y>
-      <width>111</width>
+      <x>50</x>
+      <y>580</y>
+      <width>161</width>
       <height>31</height>
      </rect>
     </property>
@@ -37,9 +37,9 @@
    <widget class="QPushButton" name="selectColumnsButton">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>440</y>
-      <width>111</width>
+      <x>420</x>
+      <y>580</y>
+      <width>101</width>
       <height>31</height>
      </rect>
     </property>
@@ -51,8 +51,8 @@
     <property name="geometry">
      <rect>
       <x>240</x>
-      <y>440</y>
-      <width>111</width>
+      <y>580</y>
+      <width>161</width>
       <height>31</height>
      </rect>
     </property>
@@ -70,7 +70,7 @@
      <enum>QFrame::StyledPanel</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+     <enum>QFrame::Sunken</enum>
     </property>
     <widget class="QCustomPlot" name="plot" native="true">
      <property name="geometry">
@@ -83,10 +83,10 @@
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="RsquaredLabel">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>1050</x>
       <y>580</y>
       <width>71</width>
       <height>31</height>
@@ -99,7 +99,7 @@
    <widget class="QTextEdit" name="corrTextEdit">
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>890</x>
       <y>580</y>
       <width>91</width>
       <height>31</height>
@@ -112,8 +112,8 @@
    <widget class="QLabel" name="xlabel">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>445</y>
+      <x>30</x>
+      <y>585</y>
       <width>21</width>
       <height>21</height>
      </rect>
@@ -131,7 +131,7 @@
     <property name="geometry">
      <rect>
       <x>220</x>
-      <y>445</y>
+      <y>585</y>
       <width>21</width>
       <height>21</height>
      </rect>
@@ -143,6 +143,52 @@
     </property>
     <property name="text">
      <string>Y:</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="RsquaredTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>1120</x>
+      <y>580</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="corrLabel">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>580</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Correlation:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="covLabel">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>580</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Covariance:</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="covTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>580</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
     </property>
    </widget>
   </widget>
