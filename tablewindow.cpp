@@ -126,6 +126,8 @@ void TableWindow::importDataFromCsv(QString path)
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
+    ui->column1_comboBox->clear();
+    ui->column2_comboBox->clear();
     for(int i = 0; i < numCols; i++) {
         ui->column1_comboBox->addItem(v[0][i]);
         ui->column2_comboBox->addItem(v[0][i]);
