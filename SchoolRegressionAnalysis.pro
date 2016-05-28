@@ -13,7 +13,6 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     qcustomplot.cpp \
     selectdatasource.cpp \
     tablewindow.cpp \
@@ -32,7 +31,7 @@ SOURCES += main.cpp\
     alglib/statistics.cpp \
     csvparser.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     qcustomplot.h \
     selectdatasource.h \
     tablewindow.h \
@@ -52,6 +51,6 @@ HEADERS  += mainwindow.h \
     alglib/stdafx.h \
     csvparser.h
 
-FORMS    += mainwindow.ui \
+FORMS    += \
     selectdatasource.ui \
     tablewindow.ui
