@@ -12,6 +12,7 @@
 #include <vector>
 #include <QFileDialog>
 #include <QAbstractItemModel>
+#include <QtMath>
 
 using namespace std;
 using namespace alglib;
@@ -86,11 +87,13 @@ void TableWindow::importDataFromCsv(QString path)
         }
         v.push_back(vrow);
     }
+
     QStandardItemModel *model = new QStandardItemModel(v.size()-1,v[0].size(),this);
-    cout << v[v.size()-1].size() << ", " <<v.size() <<endl;
-    for(int i = 0; i < v.size(); i++)
+    size_t numRows = v.size();
+    size_t numCols = v[0].size();
+    for(int i = 0; i < numRows; i++)
     {
-        for(int j = 0; j < v[i].size(); j++)
+        for(int j = 0; j < numCols; j++)
         {
             if(i == 0)
                 model->setHorizontalHeaderItem(j, new QStandardItem(v[i][j]));
@@ -101,7 +104,7 @@ void TableWindow::importDataFromCsv(QString path)
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
-    for(int i = 0; i < v[0].size(); i++) {
+    for(int i = 0; i < numCols; i++) {
         ui->column1_comboBox->addItem(v[0][i]);
         ui->column2_comboBox->addItem(v[0][i]);
     }
@@ -128,11 +131,12 @@ void TableWindow::on_selectColumnsButton_clicked()
     real_1d_array xs = QVectorToALGLIBArray(x);
     real_1d_array ys = QVectorToALGLIBArray(y);
 
-    v = cov2(xs, ys);
-    v = pearsoncorr2(xs, ys);
+    v = cov2(xs, ys); // Covariance
+    ui->covTextEdit->setText(QString::number(v));
+    v = pearsoncorr2(xs, ys); // Correlation
     ui->corrTextEdit->setText(QString::number(v));
-    v = spearmancorr2(xs, ys);
-    //ui->corrTextEdit->setText(QString::number(v));
+    v = v*v; // R-squared
+    ui->RsquaredTextEdit->setText(QString::number(v));
 }
 
 // Graphing
