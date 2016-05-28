@@ -24,10 +24,13 @@ public:
 private slots:
     void on_selectColumnsButton_clicked();
     void importCSVFile();
+    void onPlotMouseMove(QMouseEvent* e);
 
 private:
     Ui::TableWindow *ui;
     SelectDataSource* sds;
+    QVector<double> selectedXValues;
+    QVector<double> selectedYValues;
 
     void importDataFromCsv(QString path);
     void showThisWindow();

@@ -3,6 +3,7 @@
 #include "qcustomplot.h"
 #include "csvparser.h"
 
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -40,6 +41,7 @@ TableWindow::TableWindow(QWidget *parent) :
     p->setInteraction(QCP::iRangeZoom, true);
 
     connect(sds, SIGNAL(importButtonClicked()), this, SLOT(importCSVFile()));
+    connect(p, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onPlotMouseMove(QMouseEvent*)));
     sds->show();
 }
 
@@ -68,6 +70,25 @@ void TableWindow::importCSVFile()
         importDataFromCsv(fileName);
 
     showThisWindow();
+}
+
+void TableWindow::onPlotMouseMove(QMouseEvent *event) {
+    QCustomPlot* p = ui->plot;
+    double eventPixelX = event->pos().x();
+    double eventPixelY = event->pos().y();
+
+    double distanceThreshold = 15.0;
+
+    for (int i=0; i<this->selectedXValues.size() && i<this->selectedYValues.size(); i++) {
+        double coordX = this->selectedXValues[i];
+        double coordY = this->selectedYValues[i];
+        double pixelX = p->xAxis->coordToPixel(coordX);
+        double pixelY = p->yAxis->coordToPixel(coordY);
+        if (abs(pixelX-eventPixelX) + abs(pixelY-eventPixelY) < distanceThreshold) {
+            QToolTip::showText(event->globalPos(),
+                    QString::number(coordX) + QString(", ") + QString::number(coordY));
+        }
+    }
 }
 
 void TableWindow::importDataFromCsv(QString path)
@@ -116,20 +137,20 @@ void TableWindow::on_selectColumnsButton_clicked()
     int c2 = ui->column2_comboBox->currentIndex();
     QAbstractItemModel* model = ui->tableView->model();
     int numDataPoints = model->rowCount();
-    QVector<double> x(numDataPoints);
-    QVector<double> y(numDataPoints);
+    selectedXValues = QVector<double>(numDataPoints);
+    selectedYValues = QVector<double>(numDataPoints);
 
     for (int i = 0; i < numDataPoints; i++)
     {
-        x[i] = model->data(model->index(i, c1)).toDouble();
-        y[i] = model->data(model->index(i, c2)).toDouble();
+        selectedXValues[i] = model->data(model->index(i, c1)).toDouble();
+        selectedYValues[i] = model->data(model->index(i, c2)).toDouble();
     }
 
-    plotData(x, y, "x", "y");
+    plotData(selectedXValues, selectedYValues, "x", "y");
 
     double v;
-    real_1d_array xs = QVectorToALGLIBArray(x);
-    real_1d_array ys = QVectorToALGLIBArray(y);
+    real_1d_array xs = QVectorToALGLIBArray(selectedXValues);
+    real_1d_array ys = QVectorToALGLIBArray(selectedYValues);
 
     v = cov2(xs, ys); // Covariance
     ui->covTextEdit->setText(QString::number(v));
