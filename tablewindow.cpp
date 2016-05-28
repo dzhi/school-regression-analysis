@@ -78,7 +78,7 @@ void TableWindow::onPlotMouseMove(QMouseEvent *event) {
     double eventPixelX = event->pos().x();
     double eventPixelY = event->pos().y();
 
-    double distanceThreshold = 15.0;
+    double distanceThreshold = 4.0;
 
     for (int i=0; i<this->selectedXValues.size() && i<this->selectedYValues.size(); i++) {
         double coordX = this->selectedXValues[i];
@@ -86,7 +86,7 @@ void TableWindow::onPlotMouseMove(QMouseEvent *event) {
         double pixelX = p->xAxis->coordToPixel(coordX);
         double pixelY = p->yAxis->coordToPixel(coordY);
         if (abs(pixelX-eventPixelX) + abs(pixelY-eventPixelY) < distanceThreshold) {
-            QToolTip::showText(event->globalPos(),
+            QToolTip::showText(p->mapToGlobal(QPoint(pixelX, pixelY)),
                     QString("%1, %2").arg(coordX).arg(coordY));
         }
     }
