@@ -49,12 +49,12 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="openBlankButton">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="text">
-       <string>Import from Excel</string>
+       <string>Open blank</string>
       </property>
      </widget>
     </item>

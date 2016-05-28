@@ -41,6 +41,7 @@ TableWindow::TableWindow(QWidget *parent) :
     p->setInteraction(QCP::iRangeZoom, true);
 
     connect(sds, SIGNAL(importButtonClicked()), this, SLOT(importCSVFile()));
+    connect(sds, SIGNAL(openBlankButtonClicked()), this, SLOT(showThisWindow()));
     connect(p, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onPlotMouseMove(QMouseEvent*)));
     sds->show();
 }
@@ -213,4 +214,9 @@ int TableWindow::getMinAndMaxVals(QVector<double> &v, double &min, double &max) 
     }
 
     return 0;
+}
+
+void TableWindow::on_actionImport_from_CSV_triggered()
+{
+    this->importCSVFile();
 }

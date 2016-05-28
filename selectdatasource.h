@@ -17,12 +17,14 @@ public:
 
 private slots:
     void on_importFromCsvButton_clicked();
+    void on_openBlankButton_clicked();
 
 private:
     Ui::SelectDataSource *ui;
 
 signals:
     void importButtonClicked();
+    void openBlankButtonClicked();
 };
 
 #endif // SELECTDATASOURCE_H

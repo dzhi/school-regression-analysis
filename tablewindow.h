@@ -22,9 +22,11 @@ public:
     ~TableWindow();
 
 private slots:
+    void showThisWindow();
     void on_selectColumnsButton_clicked();
     void importCSVFile();
     void onPlotMouseMove(QMouseEvent* e);
+    void on_actionImport_from_CSV_triggered();
 
 private:
     Ui::TableWindow *ui;
@@ -33,7 +35,6 @@ private:
     QVector<double> selectedYValues;
 
     void importDataFromCsv(QString path);
-    void showThisWindow();
 
     void plotData(QVector<double> &x, QVector<double> &y, QString xAxisLabel, QString yAxisLabel);
     alglib::real_1d_array QVectorToALGLIBArray(QVector<double> &v) const;
