@@ -86,7 +86,7 @@ void TableWindow::onPlotMouseMove(QMouseEvent *event) {
         double pixelY = p->yAxis->coordToPixel(coordY);
         if (abs(pixelX-eventPixelX) + abs(pixelY-eventPixelY) < distanceThreshold) {
             QToolTip::showText(event->globalPos(),
-                    QString::number(coordX) + QString(", ") + QString::number(coordY));
+                    QString("%1, %2").arg(coordX).arg(coordY));
         }
     }
 }
