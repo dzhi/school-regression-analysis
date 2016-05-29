@@ -37,6 +37,16 @@ TableWindow::TableWindow(QWidget *parent) :
 
     p->graph(0)->setLineStyle(QCPGraph::lsNone);
 
+    p->addGraph();
+    QCPScatterStyle myScatter2;
+    myScatter2.setShape(QCPScatterStyle::ssDisc);
+    myScatter2.setPen(QPen(Qt::red));
+    myScatter2.setBrush(Qt::white);
+    myScatter2.setSize(6);
+    p->graph(1)->setScatterStyle(myScatter2);
+
+    p->graph(1)->setLineStyle(QCPGraph::lsNone);
+
     p->setInteraction(QCP::iRangeDrag, true);
     p->setInteraction(QCP::iRangeZoom, true);
 
@@ -88,8 +98,19 @@ void TableWindow::onPlotMouseMove(QMouseEvent *event) {
         if (abs(pixelX-eventPixelX) + abs(pixelY-eventPixelY) < distanceThreshold) {
             QToolTip::showText(p->mapToGlobal(QPoint(pixelX, pixelY)),
                     QString("%1, %2").arg(coordX).arg(coordY));
+            ui->tableView->selectRow(i);
+            QVector<double> xs;
+            xs.append(coordX);
+            QVector<double> ys;
+            ys.append(coordY);
+            p->graph(1)->setData(xs, ys);
+            p->replot();
+            return;
         }
     }
+    QToolTip::hideText();
+    p->graph(1)->clearData();
+    p->replot();
 }
 
 void TableWindow::importDataFromCsv(QString path)
