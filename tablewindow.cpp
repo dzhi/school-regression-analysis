@@ -28,25 +28,25 @@ TableWindow::TableWindow(QWidget *parent) :
     ui->setupUi(this);
 
     QCustomPlot* p = ui->plot;
+
+    // graph(0) is the main QCPGraph which will contain all the data points
     p->addGraph();
-
-    QCPScatterStyle myScatter;
-    myScatter.setShape(QCPScatterStyle::ssDisc);
-    myScatter.setPen(QPen(Qt::blue));
-    myScatter.setBrush(Qt::white);
-    myScatter.setSize(5);
-    p->graph(0)->setScatterStyle(myScatter);
-
+    QCPScatterStyle mainScatterStyle;
+    mainScatterStyle.setShape(QCPScatterStyle::ssDisc);
+    mainScatterStyle.setPen(QPen(QColor(0x0d, 0x47, 0xa1))); // dark blue
+    mainScatterStyle.setBrush(Qt::white);
+    mainScatterStyle.setSize(5);
+    p->graph(0)->setScatterStyle(mainScatterStyle);
     p->graph(0)->setLineStyle(QCPGraph::lsNone);
 
+    // graph(1) will contain the point highlighted when you hover over it
     p->addGraph();
-    QCPScatterStyle myScatter2;
-    myScatter2.setShape(QCPScatterStyle::ssDisc);
-    myScatter2.setPen(QPen(Qt::red));
-    myScatter2.setBrush(Qt::white);
-    myScatter2.setSize(6);
-    p->graph(1)->setScatterStyle(myScatter2);
-
+    QCPScatterStyle highlightStyle;
+    highlightStyle.setShape(QCPScatterStyle::ssDisc);
+    highlightStyle.setPen(QPen(QColor(0x1e, 0x88, 0xe5))); // light blue
+    highlightStyle.setBrush(Qt::white);
+    highlightStyle.setSize(7);
+    p->graph(1)->setScatterStyle(highlightStyle);
     p->graph(1)->setLineStyle(QCPGraph::lsNone);
 
     p->setInteraction(QCP::iRangeDrag, true);
@@ -55,6 +55,8 @@ TableWindow::TableWindow(QWidget *parent) :
     connect(sds, SIGNAL(importButtonClicked()), this, SLOT(importCSVFile()));
     connect(sds, SIGNAL(openBlankButtonClicked()), this, SLOT(showThisWindow()));
     connect(p, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onPlotMouseMove(QMouseEvent*)));
+    connect(p, SIGNAL(plottableClick(QCPAbstractPlottable*, QMouseEvent*)),
+            this, SLOT(onPlotMouseClick(QCPAbstractPlottable*, QMouseEvent*)));
     sds->show();
 }
 
@@ -85,34 +87,73 @@ void TableWindow::importCSVFile()
     showThisWindow();
 }
 
-void TableWindow::onPlotMouseMove(QMouseEvent *event) {
+// Finds a data point whose distance from the given pixel is less than a given threshold, and
+// returns the index of that point in the selectedXValues/selectedYValues vectors.
+//
+// If there are multiple points within the threshold, this function just returns the first one
+// found.
+// Returns -1 if no points are within the threshold.
+int TableWindow::findIndexOfNearbyDataPoint(double pixelXGiven, double pixelYGiven, double pixelDistanceThreshold)
+{
+    QCustomPlot* p = ui->plot;
+    for (int i=0; i<this->selectedXValues.size() && i<this->selectedYValues.size(); i++) {
+        double coordX = this->selectedXValues[i];
+        double coordY = this->selectedYValues[i];
+        double pixelX = p->xAxis->coordToPixel(coordX);
+        double pixelY = p->yAxis->coordToPixel(coordY);
+        // using taxicab distance instead of Euclidean distance for convenience (it doesn't really matter)
+        if (abs(pixelX-pixelXGiven) + abs(pixelY-pixelYGiven) < pixelDistanceThreshold) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+// Moving the mouse near a data point highlights it, shows a tooltip, and changes the cursor style
+// to pointing hand.
+void TableWindow::onPlotMouseMove(QMouseEvent *event)
+{
     QCustomPlot* p = ui->plot;
     double eventPixelX = event->pos().x();
     double eventPixelY = event->pos().y();
 
     double distanceThreshold = 4.0;
 
-    for (int i=0; i<this->selectedXValues.size() && i<this->selectedYValues.size(); i++) {
-        double coordX = this->selectedXValues[i];
-        double coordY = this->selectedYValues[i];
+    int index = findIndexOfNearbyDataPoint(eventPixelX, eventPixelY, distanceThreshold);
+
+    if (index >= 0) {
+        double coordX = this->selectedXValues[index];
+        double coordY = this->selectedYValues[index];
         double pixelX = p->xAxis->coordToPixel(coordX);
         double pixelY = p->yAxis->coordToPixel(coordY);
-        if (abs(pixelX-eventPixelX) + abs(pixelY-eventPixelY) < distanceThreshold) {
-            QToolTip::showText(p->mapToGlobal(QPoint(pixelX, pixelY)),
-                    QString("%1, %2").arg(coordX).arg(coordY));
-            ui->tableView->selectRow(i);
-            QVector<double> xs;
-            xs.append(coordX);
-            QVector<double> ys;
-            ys.append(coordY);
-            p->graph(1)->setData(xs, ys);
-            p->replot();
-            return;
-        }
+        QToolTip::showText(p->mapToGlobal(QPoint(pixelX, pixelY)),
+                QString("%1, %2").arg(coordX).arg(coordY));
+
+        QVector<double> xs;
+        xs.append(coordX);
+        QVector<double> ys;
+        ys.append(coordY);
+        p->graph(1)->setData(xs, ys);
+        p->replot();
+        setCursor(Qt::PointingHandCursor);
+    } else {
+        QToolTip::hideText();
+        p->graph(1)->clearData();
+        p->replot();
+        setCursor(Qt::ArrowCursor);
     }
-    QToolTip::hideText();
-    p->graph(1)->clearData();
-    p->replot();
+}
+
+// Clicking a data point selects the corresponding row in the table.
+void TableWindow::onPlotMouseClick(QCPAbstractPlottable* plottable, QMouseEvent* event)
+{
+    double eventPixelX = event->pos().x();
+    double eventPixelY = event->pos().y();
+    double distanceThreshold = 4.0;
+    int index = findIndexOfNearbyDataPoint(eventPixelX, eventPixelY, distanceThreshold);
+    if (index >= 0) {
+        ui->tableView->selectRow(index);
+    }
 }
 
 void TableWindow::importDataFromCsv(QString path)

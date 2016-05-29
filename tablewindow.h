@@ -5,12 +5,13 @@
 #include <QVector>
 #include <QString>
 
-#include "selectdatasource.h"
-#include "alglib/stdafx.h"
 #include "alglib/statistics.h"
+#include "alglib/stdafx.h"
+#include "qcustomplot.h"
+#include "selectdatasource.h"
 
 namespace Ui {
-class TableWindow;
+    class TableWindow;
 }
 
 class TableWindow : public QMainWindow
@@ -25,9 +26,9 @@ private slots:
     void showThisWindow();
     void on_selectColumnsButton_clicked();
     void importCSVFile();
-    void onPlotMouseMove(QMouseEvent* e);
+    void onPlotMouseMove(QMouseEvent* event);
+    void onPlotMouseClick(QCPAbstractPlottable* plottable, QMouseEvent* event);
     void on_actionImport_from_CSV_triggered();
-
     void on_actionExport_triggered();
 
 private:
@@ -36,8 +37,8 @@ private:
     QVector<double> selectedXValues;
     QVector<double> selectedYValues;
 
+    int findIndexOfNearbyDataPoint(double pixelXGiven, double pixelYGiven, double pixelDistanceThreshold);
     void importDataFromCsv(QString path);
-
     void plotData(QVector<double> &x, QVector<double> &y, QString xAxisLabel, QString yAxisLabel);
     alglib::real_1d_array QVectorToALGLIBArray(QVector<double> &v) const;
     int getMinAndMaxVals(QVector<double> &v, double &min, double &max) const;
