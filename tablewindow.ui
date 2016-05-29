@@ -204,7 +204,7 @@
      <x>0</x>
      <y>0</y>
      <width>1220</width>
-     <height>25</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -212,6 +212,7 @@
      <string>File</string>
     </property>
     <addaction name="actionImport_from_CSV"/>
+    <addaction name="actionExport"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -219,6 +220,11 @@
   <action name="actionImport_from_CSV">
    <property name="text">
     <string>Import from CSV</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="text">
+    <string>Export</string>
    </property>
   </action>
  </widget>
