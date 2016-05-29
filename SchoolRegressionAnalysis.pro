@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     alglib/solvers.cpp \
     alglib/specialfunctions.cpp \
     alglib/statistics.cpp \
-    csvparser.cpp
+    csvparser.cpp \
+    qcpdocumentobject.cpp
 
 HEADERS  += \
     qcustomplot.h \
@@ -49,7 +50,8 @@ HEADERS  += \
     alglib/specialfunctions.h \
     alglib/statistics.h \
     alglib/stdafx.h \
-    csvparser.h
+    csvparser.h \
+    qcpdocumentobject.h
 
 FORMS    += \
     selectdatasource.ui \

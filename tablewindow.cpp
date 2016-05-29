@@ -2,6 +2,7 @@
 #include "ui_tablewindow.h"
 #include "qcustomplot.h"
 #include "csvparser.h"
+#include "qcpdocumentobject.h"
 
 #include <cmath>
 #include <iostream>
@@ -14,6 +15,7 @@
 #include <QFileDialog>
 #include <QAbstractItemModel>
 #include <QtMath>
+#include <QPrinter>
 
 using namespace std;
 using namespace alglib;
@@ -242,4 +244,29 @@ int TableWindow::getMinAndMaxVals(QVector<double> &v, double &min, double &max) 
 void TableWindow::on_actionImport_from_CSV_triggered()
 {
     this->importCSVFile();
+}
+
+
+
+void TableWindow::on_actionExport_triggered()
+{
+        QTextEdit *editor = new QTextEdit();
+        QTextCursor cursor = editor->textCursor();
+        QCPDocumentObject *plotObjectHandler = new QCPDocumentObject(this);
+        editor->document()->documentLayout()->registerHandler(QCPDocumentObject::PlotTextFormat, plotObjectHandler);
+        cursor.insertText(QString(QChar::ObjectReplacementCharacter), QCPDocumentObject::generatePlotFormat(ui->plot, 0, 0));
+        editor->setTextCursor(cursor);
+        QString fileName = QFileDialog::getSaveFileName(this, "Save document...", qApp->applicationDirPath(), "*.pdf");
+        if (!fileName.isEmpty())
+        {
+          fileName.append(".pdf");
+          QPrinter printer;
+          printer.setFullPage(true);
+          printer.setPaperSize(QPrinter::A4);
+          printer.setOrientation(QPrinter::Portrait);
+          printer.setOutputFormat(QPrinter::PdfFormat);
+          printer.setOutputFileName(fileName);
+          editor->document()->setPageSize(printer.pageRect().size());
+          editor->document()->print(&printer);
+        }
 }

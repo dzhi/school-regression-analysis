@@ -28,6 +28,8 @@ private slots:
     void onPlotMouseMove(QMouseEvent* e);
     void on_actionImport_from_CSV_triggered();
 
+    void on_actionExport_triggered();
+
 private:
     Ui::TableWindow *ui;
     SelectDataSource* sds;
