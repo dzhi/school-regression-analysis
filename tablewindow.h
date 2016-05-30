@@ -5,8 +5,10 @@
 #include <QVector>
 #include <QString>
 
-#include "alglib/statistics.h"
 #include "alglib/stdafx.h"
+#include "alglib/dataanalysis.h"
+#include "alglib/statistics.h"
+
 #include "qcustomplot.h"
 #include "selectdatasource.h"
 
@@ -39,8 +41,9 @@ private:
 
     int findIndexOfNearbyDataPoint(double pixelXGiven, double pixelYGiven, double pixelDistanceThreshold);
     void importDataFromCsv(QString path);
+
     void plotData(QVector<double> &x, QVector<double> &y, QString xAxisLabel, QString yAxisLabel);
-    alglib::real_1d_array QVectorToALGLIBArray(QVector<double> &v) const;
+    void interleaveVectors(QVector<double> &x, QVector<double> &y, QVector<double> &xy);
     int getMinAndMaxVals(QVector<double> &v, double &min, double &max) const;
 };
 

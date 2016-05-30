@@ -1,6 +1,5 @@
 #include "tablewindow.h"
 #include "ui_tablewindow.h"
-#include "qcustomplot.h"
 #include "csvparser.h"
 #include "qcpdocumentobject.h"
 
@@ -45,9 +44,13 @@ TableWindow::TableWindow(QWidget *parent) :
     highlightStyle.setShape(QCPScatterStyle::ssDisc);
     highlightStyle.setPen(QPen(QColor(0x1e, 0x88, 0xe5))); // light blue
     highlightStyle.setBrush(Qt::white);
-    highlightStyle.setSize(7);
+    highlightStyle.setSize(9);
     p->graph(1)->setScatterStyle(highlightStyle);
     p->graph(1)->setLineStyle(QCPGraph::lsNone);
+
+    // graph(2) will contain the linear regression line
+    p->addGraph();
+    p->graph(2)->setPen(QPen(QColor(255, 120, 0)));
 
     p->setInteraction(QCP::iRangeDrag, true);
     p->setInteraction(QCP::iRangeZoom, true);
@@ -200,6 +203,7 @@ void TableWindow::importDataFromCsv(QString path)
 
 void TableWindow::on_selectColumnsButton_clicked()
 {
+    // Get the selected columns and variable names
     int c1 = ui->column1_comboBox->currentIndex();
     int c2 = ui->column2_comboBox->currentIndex();
     QString label1 = ui->column1_comboBox->currentText();
@@ -209,24 +213,24 @@ void TableWindow::on_selectColumnsButton_clicked()
     selectedXValues = QVector<double>(numDataPoints);
     selectedYValues = QVector<double>(numDataPoints);
 
+    // Get the data points
     for (int i = 0; i < numDataPoints; i++)
     {
         selectedXValues[i] = model->data(model->index(i, c1)).toDouble();
         selectedYValues[i] = model->data(model->index(i, c2)).toDouble();
     }
 
+    // Plot data and update statistical parameters
     plotData(selectedXValues, selectedYValues, label1, label2);
+}
 
-    double v;
-    real_1d_array xs = QVectorToALGLIBArray(selectedXValues);
-    real_1d_array ys = QVectorToALGLIBArray(selectedYValues);
-
-    v = cov2(xs, ys); // Covariance
-    ui->covTextEdit->setText(QString::number(v));
-    v = pearsoncorr2(xs, ys); // Correlation
-    ui->corrTextEdit->setText(QString::number(v));
-    v = v*v; // R-squared
-    ui->RsquaredTextEdit->setText(QString::number(v));
+void TableWindow::interleaveVectors(QVector<double> &x, QVector<double>& y, QVector<double>& xy)
+{
+    for (int i = 0; i < x.length() && i < y.length(); i++)
+    {
+        xy.append(x[i]);
+        xy.append(y[i]);
+    }
 }
 
 // Graphing
@@ -246,23 +250,45 @@ void TableWindow::plotData(QVector<double> &x, QVector<double> &y, QString xAxis
 
     p->xAxis->setRange(xMin - xRangeDiff, xMax + xRangeDiff);
     p->yAxis->setRange(yMin - yRangeDiff, yMax + yRangeDiff);
+
+    // Store data points in ALGLIB arrays
+    real_1d_array xALGLIB, yALGLIB;
+    xALGLIB.setcontent(x.length(), x.constData());
+    yALGLIB.setcontent(y.length(), y.constData());
+    QVector<double> xy;
+    interleaveVectors(x, y, xy);
+    real_2d_array xyALGLIB;
+    ae_int_t numPoints = xy.length()/2;
+    xyALGLIB.setcontent(numPoints, 2, xy.constData());
+
+    // Perform linear regression on data
+    ae_int_t info;
+    ae_int_t numVars;
+    linearmodel linModel;
+    lrreport rep;
+    real_1d_array linReg;
+    lrbuild(xyALGLIB, numPoints, 1, info, linModel, rep);
+    lrunpack(linModel, linReg, numVars);
+    double slope = linReg.getcontent()[0];
+    double yIntercept = linReg.getcontent()[1];
+    QVector<double> linRegX(2), linRegY(2);
+    linRegX[0] = 0;
+    linRegY[0] = yIntercept;
+    linRegX[1] = 1.5*xMax;
+    linRegY[1] = slope*linRegX[1] + yIntercept;
+    // Plot regression line
+    p->graph(2)->setData(linRegX, linRegY);
+
     p->replot();
-}
 
-real_1d_array TableWindow::QVectorToALGLIBArray(QVector<double> &v) const
-{
-    QString s = "[";
-    if (v.size() > 0)
-        s.append(QString::number(v[0]));
-    for (int i = 1; i < v.size(); i++)
-    {
-        s.append(",");
-        s.append(QString::number(v[i]));
-    }
-    s.append("]");
-
-    real_1d_array r1da = s.toStdString().c_str();
-    return r1da;
+    // Get covariance, correlation, and R-squared values
+    double v;
+    v = cov2(xALGLIB, yALGLIB); // Covariance
+    ui->covTextEdit->setText(QString::number(v));
+    v = pearsoncorr2(xALGLIB, yALGLIB); // Correlation
+    ui->corrTextEdit->setText(QString::number(v));
+    v = v*v; // R-squared
+    ui->RsquaredTextEdit->setText(QString::number(v));
 }
 
 int TableWindow::getMinAndMaxVals(QVector<double> &v, double &min, double &max) const
@@ -286,8 +312,6 @@ void TableWindow::on_actionImport_from_CSV_triggered()
 {
     this->importCSVFile();
 }
-
-
 
 void TableWindow::on_actionExport_triggered()
 {
