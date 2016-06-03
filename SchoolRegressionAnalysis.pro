@@ -12,6 +12,16 @@ TARGET = SchoolRegressionAnalysis
 TEMPLATE = app
 
 
+CONFIG(release, debug|release) {
+    win32 {
+        QMAKE_POST_LINK += ../school-regression-analysis/winbuild.sh
+    }
+    unix {
+        QMAKE_POST_LINK += ../school-regression-analysis/macbuild.sh
+    }
+}
+
+
 SOURCES += main.cpp\
     qcustomplot.cpp \
     selectdatasource.cpp \
