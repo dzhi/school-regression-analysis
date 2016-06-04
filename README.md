@@ -21,7 +21,7 @@ Building the application is a fairly straightforward process:
 
 1. Clone the repository to your local machine. 
 2. Open the SchoolRegressionAnalysis project in Qt Creator 5.6+
-3. Select the Release target in Qt Creator ![alt text](https://github.com/jshvn/cs130fork/tree/master/img/target.png "Target")
+3. Select the Release target in Qt Creator ![alt text](https://github.com/dzhi/school-regression-analysis/blob/master/img/target.png "Target")
 4. Build the application
 5. Optional: Run the application
 
