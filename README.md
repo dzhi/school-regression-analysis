@@ -42,17 +42,17 @@ Building the application is a fairly straightforward process:
 
 - To import data, first select the CSV source file on your filesystem
 
-![alt text](https://github.com/jshvn/cs130fork/tree/master/img/5.png "Select data source")
-![alt text](https://github.com/jshvn/cs130fork/tree/master/img/3.png "Select data source file")
+![alt text](https://github.com/dzhi/school-regression-analysis/blob/master/img/5.png "Select data source")
+![alt text](https://github.com/dzhi/school-regression-analysis/blob/master/img/3.png "Select data source file")
 
 - Once your data is loaded, analysis can be performed by selecting any of the two columns in the dataset using the dropdown menus labeled X and Y
 
-![alt text](https://github.com/jshvn/cs130fork/tree/master/img/1.png "Select columns")
+![alt text](https://github.com/dzhi/school-regression-analysis/blob/master/img/1.png "Select columns")
 
 - Once two columns are selected for inspection, press the "Select Columns" button to perform analysis
 
-![alt text](https://github.com/jshvn/cs130fork/tree/master/img/4.png "Perform analysis")
+![alt text](https://github.com/dzhi/school-regression-analysis/blob/master/img/4.png "Perform analysis")
 
 - If you desire a PDF copy of the visualization, click on File -> Export to export a PDF of the visualization
 
-![alt text](https://github.com/jshvn/cs130fork/tree/master/img/2.png "Export PDF")
+![alt text](https://github.com/dzhi/school-regression-analysis/blob/master/img/2.png "Export PDF")
