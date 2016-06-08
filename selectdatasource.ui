@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
-    <height>200</height>
+    <width>261</width>
+    <height>181</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -34,7 +34,7 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>50</x>
      <y>50</y>
      <width>160</width>
      <height>80</height>
