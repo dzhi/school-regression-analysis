@@ -35,6 +35,7 @@ private slots:
 
     void on_newXLineEdit_textEdited(const QString &arg1);
 
+    void createCorrelationTable ();
 private:
     Ui::TableWindow *ui;
     SelectDataSource* sds;
@@ -51,6 +52,9 @@ private:
     void interleaveVectors(QVector<double> &x, QVector<double> &y, QVector<double> &xy);
     int getMinAndMaxVals(QVector<double> &v, double &min, double &max) const;
     void updatePredictedYValue(const QString& x);
+
+    QVector<double> getSeries(QAbstractItemModel* model, int i);
+    double calculateCorrelation(QVector<double> x, QVector<double> y, int count);
 };
 
 #endif // TABLEWINDOW_H

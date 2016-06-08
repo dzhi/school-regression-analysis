@@ -359,3 +359,41 @@ void TableWindow::on_newXLineEdit_textEdited(const QString& text)
 {
     updatePredictedYValue(text);
 }
+
+void TableWindow::createCorrelationTable (){
+    QAbstractItemModel* model = ui->tableView->model();
+    QVector<QVector<double>> matrix = QVector<QVector<double>>(model->columnCount());
+
+    for(int i = 0; i < model->columnCount(); i++){
+        matrix[i]=QVector<double>(model->columnCount());
+    }
+
+    for(int i = 0; i < model->columnCount(); i++){
+        for(int j = 0; j < i; j++){
+            QVector<double> first = getSeries(model, i);
+            QVector<double> second = getSeries(model, j);
+            matrix[i][j] = calculateCorrelation(first, second, model->rowCount());
+        }
+    }
+}
+
+QVector<double> TableWindow::getSeries(QAbstractItemModel* model, int i){
+    QVector<double> vals = QVector<double>(model->rowCount());
+    for(int k = 0; k < vals.length(); k++){
+        vals[k] = model->data(model->index(k,i)).toDouble();
+    }
+    return vals;
+}
+
+double TableWindow::calculateCorrelation(QVector<double> x, QVector<double> y, int count){
+    double sumXY = 0, sumX = 0, sumY = 0, sumX2 = 0, sumY2 = 0, ans;
+    for(int i = 0; i<count; i++){
+        sumXY += x[i]*y[i];
+        sumX += x[i];
+        sumY += y[i];
+        sumX2 += x[i]*x[i];
+        sumY2 += y[i]*y[i];
+    }
+    ans = (count * sumXY - (sumX*sumY))/((sqrt((count*sumX2) - (sumX*sumX)))*(sqrt((count*sumY2) - (sumY*sumY))));
+    return ans;
+}
