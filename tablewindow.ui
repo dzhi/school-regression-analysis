@@ -88,8 +88,8 @@
      <rect>
       <x>1090</x>
       <y>600</y>
-      <width>31</width>
-      <height>31</height>
+      <width>18</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="toolTip">
@@ -281,6 +281,19 @@
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="correlationButton">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>590</y>
+      <width>137</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Correlation Matrix</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -288,7 +301,7 @@
      <x>0</x>
      <y>0</y>
      <width>1220</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

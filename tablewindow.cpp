@@ -360,7 +360,7 @@ void TableWindow::on_newXLineEdit_textEdited(const QString& text)
     updatePredictedYValue(text);
 }
 
-void TableWindow::createCorrelationTable (){
+QVector<QVector<double>> TableWindow::createCorrelationTable (){
     QAbstractItemModel* model = ui->tableView->model();
     QVector<QVector<double>> matrix = QVector<QVector<double>>(model->columnCount());
 
@@ -372,17 +372,23 @@ void TableWindow::createCorrelationTable (){
         for(int j = 0; j < i; j++){
             QVector<double> first = getSeries(model, i);
             QVector<double> second = getSeries(model, j);
-            matrix[i][j] = calculateCorrelation(first, second, model->rowCount());
+            if (first != null & second != null)
+                matrix[i][j] = calculateCorrelation(first, second, model->rowCount());
         }
     }
+    return matrix;
 }
 
 QVector<double> TableWindow::getSeries(QAbstractItemModel* model, int i){
     QVector<double> vals = QVector<double>(model->rowCount());
+    bool checkDouble = false;
     for(int k = 0; k < vals.length(); k++){
-        vals[k] = model->data(model->index(k,i)).toDouble();
+        vals[k] = model->data(model->index(k,i)).toDouble(&checkDouble);
     }
-    return vals;
+    if (checkDouble)
+        return vals;
+    else
+        return null;
 }
 
 double TableWindow::calculateCorrelation(QVector<double> x, QVector<double> y, int count){
@@ -396,4 +402,9 @@ double TableWindow::calculateCorrelation(QVector<double> x, QVector<double> y, i
     }
     ans = (count * sumXY - (sumX*sumY))/((sqrt((count*sumX2) - (sumX*sumX)))*(sqrt((count*sumY2) - (sumY*sumY))));
     return ans;
+}
+
+void TableWindow::on_correlationButton_clicked()
+{
+    QVector<QVector<double>> m = createCorrelationTable();
 }
