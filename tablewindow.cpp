@@ -328,8 +328,16 @@ void TableWindow::on_actionExport_triggered()
         QTextEdit *editor = new QTextEdit();
         QTextCursor cursor = editor->textCursor();
         QCPDocumentObject *plotObjectHandler = new QCPDocumentObject(this);
+
         editor->document()->documentLayout()->registerHandler(QCPDocumentObject::PlotTextFormat, plotObjectHandler);
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), QCPDocumentObject::generatePlotFormat(ui->plot, 0, 0));
+
+        cursor.insertText("\n\n");
+        cursor.insertText("Trend Line Equation: " + ui->trendLineTextEdit->toPlainText() + "\n\n");
+        cursor.insertText("Covariance: " + ui->covTextEdit->toPlainText() + "\n\n");
+        cursor.insertText("Correlation: " + ui->corrTextEdit->toPlainText() + "\n\n");
+        cursor.insertText("R-squared: " + ui->RsquaredTextEdit->toPlainText() +  "\n\n");
+
         editor->setTextCursor(cursor);
         QString fileName = QFileDialog::getSaveFileName(this, "Save document...", qApp->applicationDirPath(), "*.pdf");
         if (!fileName.isEmpty())
