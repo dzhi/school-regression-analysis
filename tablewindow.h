@@ -33,11 +33,16 @@ private slots:
     void on_actionImport_from_CSV_triggered();
     void on_actionExport_triggered();
 
+    void on_newXLineEdit_textEdited(const QString &arg1);
+
 private:
     Ui::TableWindow *ui;
     SelectDataSource* sds;
     QVector<double> selectedXValues;
     QVector<double> selectedYValues;
+    double slope;
+    double yIntercept;
+    bool regressionValid;
 
     int findIndexOfNearbyDataPoint(double pixelXGiven, double pixelYGiven, double pixelDistanceThreshold);
     void importDataFromCsv(QString path);

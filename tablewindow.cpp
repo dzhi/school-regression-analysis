@@ -22,7 +22,8 @@ using namespace alglib;
 TableWindow::TableWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::TableWindow),
-    sds(new SelectDataSource)
+    sds(new SelectDataSource),
+    regressionValid(false)
 {
     ui->setupUi(this);
 
@@ -195,10 +196,13 @@ void TableWindow::importDataFromCsv(QString path)
 
     ui->column1_comboBox->clear();
     ui->column2_comboBox->clear();
-    for(int i = 0; i < numCols; i++) {
+    for (int i = 0; i < numCols; i++) {
         ui->column1_comboBox->addItem(v[0][i]);
         ui->column2_comboBox->addItem(v[0][i]);
     }
+
+
+    regressionValid = false;
 }
 
 void TableWindow::on_selectColumnsButton_clicked()
@@ -269,8 +273,8 @@ void TableWindow::plotData(QVector<double> &x, QVector<double> &y, QString xAxis
     real_1d_array linReg;
     lrbuild(xyALGLIB, numPoints, 1, info, linModel, rep);
     lrunpack(linModel, linReg, numVars);
-    double slope = linReg.getcontent()[0];
-    double yIntercept = linReg.getcontent()[1];
+    slope = linReg.getcontent()[0];
+    yIntercept = linReg.getcontent()[1];
     QVector<double> linRegX(2), linRegY(2);
     linRegX[0] = 0;
     linRegY[0] = yIntercept;
@@ -281,6 +285,9 @@ void TableWindow::plotData(QVector<double> &x, QVector<double> &y, QString xAxis
 
     p->replot();
 
+    ui->trendLineTextEdit->setText(
+            QString("y = %1x + %2").arg(slope).arg(yIntercept));
+
     // Get covariance, correlation, and R-squared values
     double v;
     v = cov2(xALGLIB, yALGLIB); // Covariance
@@ -289,6 +296,8 @@ void TableWindow::plotData(QVector<double> &x, QVector<double> &y, QString xAxis
     ui->corrTextEdit->setText(QString::number(v));
     v = v*v; // R-squared
     ui->RsquaredTextEdit->setText(QString::number(v));
+
+    regressionValid = true;
 }
 
 int TableWindow::getMinAndMaxVals(QVector<double> &v, double &min, double &max) const
@@ -334,4 +343,13 @@ void TableWindow::on_actionExport_triggered()
           editor->document()->setPageSize(printer.pageRect().size());
           editor->document()->print(&printer);
         }
+}
+
+void TableWindow::on_newXLineEdit_textEdited(const QString &text)
+{
+    bool valid;
+    double x = text.toDouble(&valid);
+    if (valid && regressionValid) {
+        ui->predictedYTextEdit->setText(QString::number(slope * x + yIntercept));
+    }
 }

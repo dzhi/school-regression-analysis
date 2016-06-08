@@ -28,7 +28,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>580</y>
+      <y>560</y>
       <width>161</width>
       <height>31</height>
      </rect>
@@ -38,7 +38,7 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>580</y>
+      <y>560</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -51,7 +51,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>580</y>
+      <y>560</y>
       <width>161</width>
       <height>31</height>
      </rect>
@@ -86,21 +86,24 @@
    <widget class="QLabel" name="RsquaredLabel">
     <property name="geometry">
      <rect>
-      <x>1040</x>
-      <y>580</y>
-      <width>81</width>
+      <x>1090</x>
+      <y>600</y>
+      <width>31</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Measures how well the y variable can be predicted from the x variable. The relationship is not necessarily cause and effect.&lt;/p&gt;&lt;p&gt;R&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; near 0 means y cannot be predicted from x. R&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; near 1 means y can be accurately predicted from x.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="text">
-     <string>R-squared:</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;R&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt;:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="corrTextEdit">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>580</y>
+      <x>970</x>
+      <y>600</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -113,9 +116,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>585</y>
+      <y>560</y>
       <width>21</width>
-      <height>21</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -124,16 +127,16 @@
      </font>
     </property>
     <property name="text">
-     <string>X:</string>
+     <string>x:</string>
     </property>
    </widget>
    <widget class="QLabel" name="ylabel">
     <property name="geometry">
      <rect>
       <x>210</x>
-      <y>585</y>
+      <y>560</y>
       <width>21</width>
-      <height>21</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -142,24 +145,27 @@
      </font>
     </property>
     <property name="text">
-     <string>Y:</string>
+     <string>y:</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="RsquaredTextEdit">
     <property name="geometry">
      <rect>
       <x>1120</x>
-      <y>580</y>
+      <y>600</y>
       <width>91</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="corrLabel">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>580</y>
+      <x>880</x>
+      <y>600</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -174,8 +180,8 @@
    <widget class="QLabel" name="covLabel">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>580</y>
+      <x>670</x>
+      <y>600</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -190,8 +196,86 @@
    <widget class="QTextEdit" name="covTextEdit">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>580</y>
+      <x>760</x>
+      <y>600</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="newXLabel">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>560</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Enter new x:</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="predictedYTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>1120</x>
+      <y>560</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="predictedYLabel">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>560</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Predicted y:</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="trendLineTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>560</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trendLineLabel">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>560</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Trend line:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="newXLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>560</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -216,7 +300,6 @@
    </widget>
    <addaction name="menuFile"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionImport_from_CSV">
    <property name="text">
     <string>Import from CSV</string>
