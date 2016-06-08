@@ -43,6 +43,9 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string/>
+    </property>
     <property name="text">
      <string>Select Columns</string>
     </property>
@@ -93,7 +96,7 @@
      </rect>
     </property>
     <property name="toolTip">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Measures how well the y variable can be predicted from the x variable. The relationship is not necessarily cause and effect.&lt;/p&gt;&lt;p&gt;R&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; near 0 means y cannot be predicted from x. R&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; near 1 means y can be accurately predicted from x.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Measures how well the y variable can be predicted from the x variable. (Not necessarily a cause and effect relationship.)&lt;/p&gt;&lt;p&gt;R&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; near 0 means y cannot be predicted from x. R&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; near 1 means y can be accurately predicted from x.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;R&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt;:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -215,6 +218,9 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input an x-value to get the corresponding predicted y-value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="text">
      <string>Enter new x:</string>
     </property>
@@ -241,6 +247,9 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Predicted y-value for the inputted x-value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="text">
      <string>Predicted y:</string>
     </property>
@@ -266,6 +275,9 @@
       <width>81</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Equation of the trend line of the linear regression model.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="text">
      <string>Trend line:</string>
