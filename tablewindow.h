@@ -50,6 +50,7 @@ private:
     void plotData(QVector<double> &x, QVector<double> &y, QString xAxisLabel, QString yAxisLabel);
     void interleaveVectors(QVector<double> &x, QVector<double> &y, QVector<double> &xy);
     int getMinAndMaxVals(QVector<double> &v, double &min, double &max) const;
+    void updatePredictedYValue(const QString& x);
 };
 
 #endif // TABLEWINDOW_H

@@ -298,6 +298,7 @@ void TableWindow::plotData(QVector<double> &x, QVector<double> &y, QString xAxis
     ui->RsquaredTextEdit->setText(QString::number(v));
 
     regressionValid = true;
+    updatePredictedYValue(ui->newXLineEdit->text());
 }
 
 int TableWindow::getMinAndMaxVals(QVector<double> &v, double &min, double &max) const
@@ -345,11 +346,16 @@ void TableWindow::on_actionExport_triggered()
         }
 }
 
-void TableWindow::on_newXLineEdit_textEdited(const QString &text)
+void TableWindow::updatePredictedYValue(const QString& text)
 {
     bool valid;
     double x = text.toDouble(&valid);
     if (valid && regressionValid) {
         ui->predictedYTextEdit->setText(QString::number(slope * x + yIntercept));
     }
+}
+
+void TableWindow::on_newXLineEdit_textEdited(const QString& text)
+{
+    updatePredictedYValue(text);
 }
