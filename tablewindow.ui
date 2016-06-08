@@ -29,7 +29,7 @@
      <rect>
       <x>40</x>
       <y>560</y>
-      <width>161</width>
+      <width>351</width>
       <height>31</height>
      </rect>
     </property>
@@ -38,7 +38,7 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>560</y>
+      <y>580</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -53,9 +53,9 @@
    <widget class="QComboBox" name="column2_comboBox">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>560</y>
-      <width>161</width>
+      <x>40</x>
+      <y>600</y>
+      <width>351</width>
       <height>31</height>
      </rect>
     </property>
@@ -136,8 +136,8 @@
    <widget class="QLabel" name="ylabel">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>560</y>
+      <x>20</x>
+      <y>600</y>
       <width>21</width>
       <height>31</height>
      </rect>
