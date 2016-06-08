@@ -405,3 +405,8 @@ double TableWindow::calculateCorrelation(QVector<double> x, QVector<double> y, i
     ans = (count * sumXY - (sumX*sumY))/((sqrt((count*sumX2) - (sumX*sumX)))*(sqrt((count*sumY2) - (sumY*sumY))));
     return ans;
 }
+
+void TableWindow::on_actionClose_triggered()
+{
+    exit(0);
+}

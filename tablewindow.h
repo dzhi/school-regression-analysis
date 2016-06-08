@@ -36,6 +36,8 @@ private slots:
     void on_newXLineEdit_textEdited(const QString &arg1);
 
     void createCorrelationTable ();
+    void on_actionClose_triggered();
+
 private:
     Ui::TableWindow *ui;
     SelectDataSource* sds;

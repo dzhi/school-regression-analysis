@@ -297,6 +297,7 @@
     </property>
     <addaction name="actionImport_from_CSV"/>
     <addaction name="actionExport"/>
+    <addaction name="actionClose"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -308,6 +309,11 @@
   <action name="actionExport">
    <property name="text">
     <string>Export</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>Close</string>
    </property>
   </action>
  </widget>
