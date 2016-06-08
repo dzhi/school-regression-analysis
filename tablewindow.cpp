@@ -181,9 +181,9 @@ void TableWindow::importDataFromCsv(QString path)
     QStandardItemModel *model = new QStandardItemModel(v.size()-1,v[0].size(),this);
     size_t numRows = v.size();
     size_t numCols = v[0].size();
-    for(int i = 0; i < numRows; i++)
+    for(size_t i = 0; i < numRows; i++)
     {
-        for(int j = 0; j < numCols; j++)
+        for(size_t j = 0; j < numCols; j++)
         {
             if(i == 0)
                 model->setHorizontalHeaderItem(j, new QStandardItem(v[i][j]));
@@ -196,7 +196,7 @@ void TableWindow::importDataFromCsv(QString path)
 
     ui->column1_comboBox->clear();
     ui->column2_comboBox->clear();
-    for (int i = 0; i < numCols; i++) {
+    for (size_t i = 0; i < numCols; i++) {
         ui->column1_comboBox->addItem(v[0][i]);
         ui->column2_comboBox->addItem(v[0][i]);
     }
@@ -328,8 +328,16 @@ void TableWindow::on_actionExport_triggered()
         QTextEdit *editor = new QTextEdit();
         QTextCursor cursor = editor->textCursor();
         QCPDocumentObject *plotObjectHandler = new QCPDocumentObject(this);
+
         editor->document()->documentLayout()->registerHandler(QCPDocumentObject::PlotTextFormat, plotObjectHandler);
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), QCPDocumentObject::generatePlotFormat(ui->plot, 0, 0));
+
+        cursor.insertText("\n\n");
+        cursor.insertText("Trend Line Equation: " + ui->trendLineTextEdit->toPlainText() + "\n\n");
+        cursor.insertText("Covariance: " + ui->covTextEdit->toPlainText() + "\n\n");
+        cursor.insertText("Correlation: " + ui->corrTextEdit->toPlainText() + "\n\n");
+        cursor.insertText("R-squared: " + ui->RsquaredTextEdit->toPlainText() +  "\n\n");
+
         editor->setTextCursor(cursor);
         QString fileName = QFileDialog::getSaveFileName(this, "Save document...", qApp->applicationDirPath(), "*.pdf");
         if (!fileName.isEmpty())
@@ -404,7 +412,13 @@ double TableWindow::calculateCorrelation(QVector<double> x, QVector<double> y, i
     return ans;
 }
 
+<<<<<<< HEAD
 void TableWindow::on_correlationButton_clicked()
 {
     QVector<QVector<double>> m = createCorrelationTable();
+=======
+void TableWindow::on_actionClose_triggered()
+{
+    exit(0);
+>>>>>>> origin/master
 }
