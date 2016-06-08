@@ -181,9 +181,9 @@ void TableWindow::importDataFromCsv(QString path)
     QStandardItemModel *model = new QStandardItemModel(v.size()-1,v[0].size(),this);
     size_t numRows = v.size();
     size_t numCols = v[0].size();
-    for(int i = 0; i < numRows; i++)
+    for(size_t i = 0; i < numRows; i++)
     {
-        for(int j = 0; j < numCols; j++)
+        for(size_t j = 0; j < numCols; j++)
         {
             if(i == 0)
                 model->setHorizontalHeaderItem(j, new QStandardItem(v[i][j]));
@@ -196,7 +196,7 @@ void TableWindow::importDataFromCsv(QString path)
 
     ui->column1_comboBox->clear();
     ui->column2_comboBox->clear();
-    for (int i = 0; i < numCols; i++) {
+    for (size_t i = 0; i < numCols; i++) {
         ui->column1_comboBox->addItem(v[0][i]);
         ui->column2_comboBox->addItem(v[0][i]);
     }
