@@ -2,6 +2,7 @@
 #include "ui_tablewindow.h"
 #include "csvparser.h"
 #include "qcpdocumentobject.h"
+#include "matrix.h"
 
 #include <cmath>
 #include <iostream>
@@ -168,7 +169,7 @@ void TableWindow::importDataFromCsv(QString path)
     string value;
     vector<vector<QString>> v;
     string line;
-    while(row == CsvParser_getRow(csvparser))
+    while(row = CsvParser_getRow(csvparser))
     {
         vector<QString> vrow;
         const char **rowFields = CsvParser_getFields(row);
@@ -420,7 +421,7 @@ void TableWindow::on_correlationButton_clicked()
     for (int i = 0; i < m.size(); i++){
         headers[i] = model->horizontalHeaderItem(i);
     }
-
+    Matrix* mat = new Matrix(m,headers);
 }
 
 void TableWindow::on_actionClose_triggered()
