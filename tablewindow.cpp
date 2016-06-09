@@ -412,13 +412,12 @@ double TableWindow::calculateCorrelation(QVector<double> x, QVector<double> y, i
     return ans;
 }
 
-<<<<<<< HEAD
 void TableWindow::on_correlationButton_clicked()
 {
     QVector<QVector<double>> m = createCorrelationTable();
-=======
+}
+
 void TableWindow::on_actionClose_triggered()
 {
     exit(0);
->>>>>>> origin/master
 }
