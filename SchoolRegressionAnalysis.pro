@@ -65,4 +65,5 @@ HEADERS  += \
 
 FORMS    += \
     selectdatasource.ui \
-    tablewindow.ui
+    tablewindow.ui \
+    matrix.ui
