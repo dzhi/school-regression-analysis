@@ -381,8 +381,9 @@ QVector<QVector<double>> TableWindow::createCorrelationTable (){
         for(int j = 0; j < i; j++){
             QVector<double> first = getSeries(model, i);
             QVector<double> second = getSeries(model, j);
-            if (first.size() != 0 & second.size() != 0)
+            if (first.size() != 0 & second.size() != 0){
                 matrix[i][j] = calculateCorrelation(first, second, model->rowCount());
+            }
         }
     }
     return matrix;
@@ -416,12 +417,14 @@ double TableWindow::calculateCorrelation(QVector<double> x, QVector<double> y, i
 void TableWindow::on_correlationButton_clicked()
 {
     QVector<QVector<double>> m = createCorrelationTable();
+
     QStandardItemModel* model = (QStandardItemModel*) (ui->tableView->model());
     QVector<QStandardItem*> headers = QVector<QStandardItem*>(m.size());
     for (int i = 0; i < m.size(); i++){
         headers[i] = model->horizontalHeaderItem(i);
     }
     Matrix* mat = new Matrix(m,headers);
+    mat->show();
 }
 
 void TableWindow::on_actionClose_triggered()
