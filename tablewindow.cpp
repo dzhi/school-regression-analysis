@@ -168,7 +168,7 @@ void TableWindow::importDataFromCsv(QString path)
     string value;
     vector<vector<QString>> v;
     string line;
-    while(row = CsvParser_getRow(csvparser))
+    while(row == CsvParser_getRow(csvparser))
     {
         vector<QString> vrow;
         const char **rowFields = CsvParser_getFields(row);
@@ -380,7 +380,7 @@ QVector<QVector<double>> TableWindow::createCorrelationTable (){
         for(int j = 0; j < i; j++){
             QVector<double> first = getSeries(model, i);
             QVector<double> second = getSeries(model, j);
-            if (first != null & second != null)
+            if (first.size() != 0 & second.size() != 0)
                 matrix[i][j] = calculateCorrelation(first, second, model->rowCount());
         }
     }
@@ -396,7 +396,7 @@ QVector<double> TableWindow::getSeries(QAbstractItemModel* model, int i){
     if (checkDouble)
         return vals;
     else
-        return null;
+        return QVector<double>(0);
 }
 
 double TableWindow::calculateCorrelation(QVector<double> x, QVector<double> y, int count){
@@ -415,6 +415,12 @@ double TableWindow::calculateCorrelation(QVector<double> x, QVector<double> y, i
 void TableWindow::on_correlationButton_clicked()
 {
     QVector<QVector<double>> m = createCorrelationTable();
+    QStandardItemModel* model = (QStandardItemModel*) (ui->tableView->model());
+    QVector<QStandardItem*> headers = QVector<QStandardItem*>(m.size());
+    for (int i = 0; i < m.size(); i++){
+        headers[i] = model->horizontalHeaderItem(i);
+    }
+
 }
 
 void TableWindow::on_actionClose_triggered()

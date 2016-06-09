@@ -37,7 +37,6 @@ private slots:
 
     QVector<QVector<double>> createCorrelationTable ();
     void on_correlationButton_clicked();
-    void createCorrelationTable ();
     void on_actionClose_triggered();
 
 private:
